@@ -1,0 +1,45 @@
+
+STAR Schema:
+-----------------
+SELECT
+  dim_store.store_id,
+  SUM(fact_sales.quantity) AS quantity_sold
+ 
+FROM
+  fact_sales
+  INNER JOIN dim_product ON fact_sales.product_id = dim_product.product_id
+  INNER JOIN dim_time ON fact_sales.time_id = dim_time.time_id
+  INNER JOIN dim_store ON fact_sales.store_id = dim_store.store_id
+ 
+WHERE
+  dim_time.action_year = 2016
+  AND dim_store.city = 'Berlin'
+  AND dim_product.product_type = 'phone'
+ 
+GROUP BY
+  dim_store.store_id,
+  
+
+Snowflake Schema:
+-----------------
+
+SELECT
+  dim_store.store_id,
+  SUM(fact_sales.quantity) AS quantity_sold
+ 
+FROM
+  fact_sales
+  INNER JOIN dim_product ON fact_sales.product_id = dim_product.product_id
+  INNER JOIN dim_product_type ON dim_product.product_type_id = dim_product_type.product_type_id
+  INNER JOIN dim_time ON fact_sales.time_id = dim_time.time_id
+  INNER JOIN dim_year ON dim_time.year_id = dim_year.year_id
+  INNER JOIN dim_store ON fact_sales.store_id = dim_store.store_id
+  INNER JOIN dim_city ON dim_store.city_id = dim_city.city_id
+ 
+WHERE
+  dim_year.action_year = 2016
+  AND dim_city.city = 'Berlin'
+  AND dim_product_type.product_type_name = 'phone'
+ 
+GROUP BY
+  dim_store.store_id

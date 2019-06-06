@@ -1,0 +1,16 @@
+1. Why shoukd we need SSAS? 
+	Because, It stores the aggregated data in multi dimensional format.
+	To handle the huge amount data.
+
+2. What are the type of OLAPS?
+	a. MultiDimensional
+	b. Tabular
+
+3.What are the type of Schemas in SSAS?
+	a. STAR Schema
+	b. SnowFlake Schema
+
+
+Time: PK(Time_Id+month_Id)
+
+SELECT COUNT(*),COUNT(DISTINCT Time_ID+MonthID) FROM Time
