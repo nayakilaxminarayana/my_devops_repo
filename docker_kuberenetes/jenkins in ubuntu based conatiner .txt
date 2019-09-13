@@ -1,0 +1,13 @@
+FROM ubuntu
+RUN apt-get update && \
+    apt-get install -y wget sudo
+RUN apt-get install -y apt-transport-https
+RUN apt-get install -y ca-certificates wget
+RUN apt-get install -y  software-properties-common && \
+    add-apt-repository ppa:webupd8team/java -y
+RUN apt-get update && apt-get install -y gnupg2 &&  apt-get install sudo
+RUN wget wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+RUN sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+RUN apt-get update
+RUN apt-get install -y jenkins
+EXPOSE 8080
