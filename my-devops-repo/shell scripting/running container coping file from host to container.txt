@@ -1,0 +1,35 @@
+#=======coping the file from host to run docker container==============
+#!/bin/bash
+set -x
+#read -p "enter:" username
+#echo $username >> out1
+#lala=cat out1
+docker ps |awk '{print $1}' | awk 'NR>1' >containerid
+NEW=`cat containerid`
+for j in "$NEW"
+   do docker cp /home/ubuntu/input/file1.txt  $j:/home
+     echo "containerid : $j"
+done
+#docker exec -it container1 bash
+
+
+#===================stoping the running contanier ,deleting the container,images =======================
+#!/bin/bash
+# Stop all containers
+containers=`docker ps -a -q`
+if [ -n "$containers" ] ; then
+        docker stop $containers
+        docker ps
+fi
+
+#fi
+# Delete all containers
+#containers=`docker ps -a -q`
+#if [ -n "$containers" ]; then
+#        docker rm -f -v $containers
+#fi
+# Delete all images
+#images=`docker images -q -a`
+#if [ -n "$images" ]; then
+#        docker rmi -f $images
+#fi
