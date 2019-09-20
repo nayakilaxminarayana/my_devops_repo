@@ -1,4 +1,4 @@
-#=======coping the file from host to run docker container==============
+#=======coping the file from host to docker running  container==============
 #!/bin/bash
 set -x
 #read -p "enter:" username
